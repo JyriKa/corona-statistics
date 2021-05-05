@@ -1,8 +1,13 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import fetchData from './services/fecthData'
 import Regions from './components/Regions'
 import Map from './components/Map'
 import CardRay from './components/CardRay'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale } from  "react-datepicker";
+import fi from 'date-fns/locale/fi';
+registerLocale('fi', fi)
 
 const App = () => {
   const defaultColor = '#fff'
@@ -101,6 +106,7 @@ const App = () => {
       setChosenRegions(chosenRegions.concat(regId))
     }
   }
+  const [startDate, setStartDate] = useState(new Date());
 
   return (
     <div className="App" >
@@ -109,6 +115,7 @@ const App = () => {
       <Map width="800" height="800" regions={regions} enterHandler={handleMouseEnter}
         leaveHandler={handleMouseLeave} clickHandler={handleMouseClick} />
       <CardRay regions={chosenRegions} regionNames={regionNames} coData={coData} />
+      <DatePicker locale='fi' selected={startDate} onChange={date => setStartDate(date)} />
     </div>
   )
 }
