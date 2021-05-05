@@ -17,16 +17,16 @@ const App = () => {
     kantaHame: 'Kanta-Häme',
     keskiPohjanmaa: 'Keski-Pohjanmaa',
     keskiSuomi: 'Keski-Suomi',
-    kymeenlaakso: 'Kymeenlaakso',
+    kymenlaakso: 'Kymenlaakso',
     lappi: 'Lappi',
     pirkanmaa: 'Pirkanmaa',
-    pohjanmaa: 'Pohjanmaa',
+    pohjanmaa: 'Vaasa',
     pohjoisKarjala: 'Pohjois-Karjala',
     pohjoisPohjanmaa: 'Pohjois-Pohjanmaa',
     pohjoisSavo: 'Pohjois-Savo',
     paijatHame: 'Päijät-Häme',
     satakunta: 'Satakunta',
-    uusimaa: 'Uusimaa',
+    uusimaa: 'HUS',
     varsinaisSuomi: 'Varsinais-Suomi'
   }
   const [regions, setRegions] = useState({
@@ -38,7 +38,7 @@ const App = () => {
     kantaHame: defaultColor,
     keskiPohjanmaa: defaultColor,
     keskiSuomi: defaultColor,
-    kymeenlaakso: defaultColor,
+    kymenlaakso: defaultColor,
     lappi: defaultColor,
     pirkanmaa: defaultColor,
     pohjanmaa: defaultColor,
