@@ -3,11 +3,7 @@ import fetchData from './services/fecthData'
 import Regions from './components/Regions'
 import Map from './components/Map'
 import CardRay from './components/CardRay'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from  "react-datepicker";
-import fi from 'date-fns/locale/fi';
-registerLocale('fi', fi)
+
 
 const App = () => {
   const defaultColor = '#fff'
@@ -34,6 +30,7 @@ const App = () => {
     uusimaa: 'HUS',
     varsinaisSuomi: 'Varsinais-Suomi'
   }
+  
   const [regions, setRegions] = useState({
     ahvenanmaa: defaultColor,
     etelaKarjala: defaultColor,
@@ -106,16 +103,28 @@ const App = () => {
       setChosenRegions(chosenRegions.concat(regId))
     }
   }
+
   const [startDate, setStartDate] = useState(new Date());
+
+  const handleDateChange = (newDate) => {
+    console.log(newDate)
+    setStartDate(newDate)
+  }
+
+  const [endDate, setEndDate] = useState(new Date());
+
+  const handleEndDateChange = (newDate) => {
+    setEndDate(newDate)
+  }
 
   return (
     <div className="App" >
       <Regions regionNames={regionNames} regions={regions} enterHandler={handleMouseEnter}
         leaveHandler={handleMouseLeave} clickHandler={handleMouseClick} />
-      <Map width="800" height="800" regions={regions} enterHandler={handleMouseEnter}
+      <Map width='750' height='750' regions={regions} enterHandler={handleMouseEnter}
         leaveHandler={handleMouseLeave} clickHandler={handleMouseClick} />
-      <CardRay regions={chosenRegions} regionNames={regionNames} coData={coData} />
-      <DatePicker locale='fi' selected={startDate} onChange={date => setStartDate(date)} />
+      <CardRay regions={chosenRegions} regionNames={regionNames} coData={coData}
+        startDate={startDate} handleDateChange={handleDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} />
     </div>
   )
 }
