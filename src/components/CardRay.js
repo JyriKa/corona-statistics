@@ -1,18 +1,17 @@
 import RegCard from './RegCard'
-import PickDate from './PickDate'
+import Dates from './Dates'
 
-const CardRay = ({ regions, regionNames, coData, handleDateChange, startDate, endDate, handleEndDateChange }) => {
+const CardRay = ({ regions, regionNames, regionData, coData, handleDateChange, startDate, endDate, handleEndDateChange }) => {
     const style = {
         float: 'right'
     }
-    const cards = regions.map(e => <RegCard key={e} name={regionNames[e]} regData={coData.confirmed[regionNames[e]]} />)
+    const cards = regions.map(e => <RegCard key={e} name={regionNames[e]} data={regionData[regionNames[e]]} regData={coData.confirmed[regionNames[e]]} />)
     return (
         <div style={style}>
-            <div>
+            <div style={{overflowY: 'scroll', maxHeight: '80vh'}}>
                 {cards}
             </div>
-            <PickDate label='Aloituspäivämäärä' handleDateChange={handleDateChange} startDate={startDate} />
-            <PickDate label='Lopetuspäivämäärä' handleDateChange={handleEndDateChange} startDate={endDate} />
+            <Dates startDate={startDate} endDate={endDate} handleStart={handleDateChange} handleEnd={handleEndDateChange} />
         </div>
     )
 }
