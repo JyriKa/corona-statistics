@@ -31,13 +31,46 @@ const App = () => {
   const [regionData, setRegionData] = useState({})
   const [coData, setCoData] = useState({})
   const [chosenRegions, setChosenRegions] = useState([])
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [daysBetween, setDaysBetween] = useState(0)
+
+  const calculateDaysBetween = (date1, date2) => {
+    const timeDiff = date2 - date1
+    const dayDiff = timeDiff / (1000 * 3600 * 24)
+    return Math.ceil(dayDiff)
+  }
+
+  const handleDateChange = (newDate) => {
+    const ahvenanmaa = coData.confirmed.Ahvenanmaa
+    const startD = Date.parse(ahvenanmaa[0].date)
+    if (newDate < startD) return
+    setStartDate(newDate)
+  }
+
+  const handleEndDateChange = (newDate) => {
+    const ahvenanmaa = coData.confirmed.Ahvenanmaa
+    const endD = Date.parse(ahvenanmaa[ahvenanmaa.length - 1].date)
+    if (newDate > endD) return
+    setEndDate(newDate)
+  }
 
   useEffect(() => {
     fetchData.getRegional().then(data => setRegionData(data))
   }, [])
 
   useEffect(() => {
-    fetchData.getAll().then(data => setCoData(data))
+    fetchData.getAll().then(data => {
+      setCoData(data)
+      const ahvenanmaa = data.confirmed.Ahvenanmaa
+      const startD = Date.parse(ahvenanmaa[0].date)
+      const endD = Date.parse(ahvenanmaa[ahvenanmaa.length - 1].date)
+      setStartDate(startD)
+      setEndDate(endD)
+      const days = calculateDaysBetween(startD, endD)
+      setDaysBetween(days)
+      console.log(days)
+    })
   }, [])
 
   return (
@@ -47,8 +80,17 @@ const App = () => {
           <GraphView />
         </Route>
         <Route path="/">
-          <HomeView regionNames={regionNames} regionData={regionData} coData={coData}
-            chosenRegions={chosenRegions} setChosenRegions={setChosenRegions} />
+          <HomeView
+            regionNames={regionNames}
+            regionData={regionData}
+            coData={coData}
+            chosenRegions={chosenRegions}
+            setChosenRegions={setChosenRegions}
+            handleDateChange={handleDateChange}
+            startDate={startDate}
+            endDate={endDate}
+            handleEndDateChange={handleEndDateChange}
+          />
         </Route>
       </Switch>
     </Router>

@@ -4,7 +4,7 @@ import Regions from './Regions'
 import Map from './Map'
 import CardRay from './CardRay'
 
-const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions }) => {
+const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange }) => {
     const history = useHistory()
     const defaultColor = '#fff'
     const hoverColor = '#ff0000'
@@ -57,19 +57,6 @@ const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenReg
             changeRegionColor(regId, chosenColor)
             setChosenRegions(chosenRegions.concat(regId))
         }
-    }
-
-    const [startDate, setStartDate] = useState(new Date());
-
-    const handleDateChange = (newDate) => {
-        console.log(newDate)
-        setStartDate(newDate)
-    }
-
-    const [endDate, setEndDate] = useState(new Date());
-
-    const handleEndDateChange = (newDate) => {
-        setEndDate(newDate)
     }
 
     const handleMouseEnter = (event) => {
