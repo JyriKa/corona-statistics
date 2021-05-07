@@ -44,14 +44,14 @@ const App = () => {
   const handleDateChange = (newDate) => {
     const ahvenanmaa = coData.confirmed.Ahvenanmaa
     const startD = Date.parse(ahvenanmaa[0].date)
-    if (newDate < startD) return
+    if (newDate < startD || newDate > endDate) return
     setStartDate(newDate)
   }
 
   const handleEndDateChange = (newDate) => {
     const ahvenanmaa = coData.confirmed.Ahvenanmaa
     const endD = Date.parse(ahvenanmaa[ahvenanmaa.length - 1].date)
-    if (newDate > endD) return
+    if (newDate > endD || newDate < startDate) return
     setEndDate(newDate)
   }
 
