@@ -77,7 +77,12 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/kayra">
-          <GraphView />
+          <GraphView regionNames={regionNames} 
+          coData={coData} 
+          chosenRegions={chosenRegions} 
+          startDate={startDate} 
+          endDate={endDate} 
+          calcBetween={calculateDaysBetween} />
         </Route>
         <Route path="/">
           <HomeView
