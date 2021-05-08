@@ -1,13 +1,10 @@
-import { useState } from 'react'
-import { useHistory } from "react-router-dom";
 import Regions from './Regions'
 import Map from './Map'
-import CardRay from './CardRay'
-import { Col, Container, Row, Button } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
+import CardRayHolder from './CardRayHolder';
 
-const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange, 
+const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange,
     defaultColor, hoverColor, chosenColor, regions, setRegions }) => {
-    const history = useHistory()
 
     const getRegionId = (event) => {
         const id = event.target.id
@@ -75,12 +72,12 @@ const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenReg
                         clickHandler={handleMouseClick} />
                 </Col>
                 <Col>
-                    <CardRay
-                        regions={chosenRegions}
+                    <CardRayHolder 
+                        chosenRegions={chosenRegions}
                         regionNames={regionNames}
                         regionData={regionData}
-                        coData={coData} />
-                    <Button onClick={() => { history.push('/kayra') }} variant="outline-dark">Käyränäkymä</Button>
+                        coData={coData}
+                    />
                 </Col>
             </Row>
         </Container>
