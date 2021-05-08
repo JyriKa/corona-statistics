@@ -3,18 +3,24 @@ import { LineChart, XAxis, YAxis, Tooltip, Legend, Label, CartesianGrid, Line, R
 import moment from 'moment'
 import 'moment/locale/fi'
 
-const LinerChart = ({ data }) => {
+const LinerChart = ({ data, chosenRegions, topValueReg }) => {
+    console.log(data)
+    const lines = chosenRegions.map(elem => {
+        return <Line key={elem} type="monotone" dataKey={elem} stroke="#8884d8" />
+    })
     return (
         <ResponsiveContainer width={'99%'} height={500}>
-            <LineChart width={400} height={400} data={data}>
+            <LineChart data={data}>
                 <CartesianGrid stroke="#eee" strokeDasharray="3 3" />
-                <XAxis 
+                <XAxis
                     dataKey='date'
                     tickFormatter={(dateTime) => moment(Date.parse(dateTime)).format('MMM-DD')} ></XAxis>
                 <YAxis
-                    dataKey='value'
+                    dataKey={chosenRegions[topValueReg]}
                 ></YAxis>
-                <Line type="monotone" dataKey="value" stroke="#8884d8" />
+                <Tooltip />
+                <Legend />
+                {lines}
             </LineChart>
         </ResponsiveContainer >
     )

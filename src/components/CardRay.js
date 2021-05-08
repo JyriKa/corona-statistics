@@ -1,7 +1,6 @@
 import RegCard from './RegCard'
-import Dates from './Dates'
 
-const CardRay = ({ regions, regionNames, regionData, coData, handleDateChange, startDate, endDate, handleEndDateChange }) => {
+const CardRay = ({ regions, regionNames, regionData, coData }) => {
     const style = {
         float: 'right'
     }
@@ -11,7 +10,6 @@ const CardRay = ({ regions, regionNames, regionData, coData, handleDateChange, s
             <div style={{overflowY: 'scroll', maxHeight: '80vh'}}>
                 {cards}
             </div>
-            <Dates startDate={startDate} endDate={endDate} handleStart={handleDateChange} handleEnd={handleEndDateChange} />
         </div>
     )
 }

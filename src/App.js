@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import fetchData from './services/fecthData'
 import HomeView from './components/HomeView'
 import GraphView from './components/GraphView'
+import NavComp from './components/NavComp';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
   const regionNames = {
+    kaikkiSairaanhoitoPiirit: 'Kaikki sairaanhoitopiirit',
     ahvenanmaa: 'Ahvenanmaa',
     etelaKarjala: 'Etelä-Karjala',
     etelaPohjanmaa: 'Etelä-Pohjanmaa',
@@ -27,6 +30,32 @@ const App = () => {
     uusimaa: 'HUS',
     varsinaisSuomi: 'Varsinais-Suomi'
   }
+
+  const defaultColor = '#fff'
+  const hoverColor = '#ff0000'
+  const chosenColor = '#990000'
+
+  const [regions, setRegions] = useState({
+    ahvenanmaa: defaultColor,
+    etelaKarjala: defaultColor,
+    etelaPohjanmaa: defaultColor,
+    etelaSavo: defaultColor,
+    kainuu: defaultColor,
+    kantaHame: defaultColor,
+    keskiPohjanmaa: defaultColor,
+    keskiSuomi: defaultColor,
+    kymenlaakso: defaultColor,
+    lappi: defaultColor,
+    pirkanmaa: defaultColor,
+    pohjanmaa: defaultColor,
+    pohjoisKarjala: defaultColor,
+    pohjoisPohjanmaa: defaultColor,
+    pohjoisSavo: defaultColor,
+    paijatHame: defaultColor,
+    satakunta: defaultColor,
+    uusimaa: defaultColor,
+    varsinaisSuomi: defaultColor
+  })
 
   const [regionData, setRegionData] = useState({})
   const [coData, setCoData] = useState({})
@@ -63,8 +92,9 @@ const App = () => {
     fetchData.getAll().then(data => {
       setCoData(data)
       const ahvenanmaa = data.confirmed.Ahvenanmaa
-      const startD = Date.parse(ahvenanmaa[0].date)
-      const endD = Date.parse(ahvenanmaa[ahvenanmaa.length - 1].date)
+      const lastIndex = ahvenanmaa.length - 1
+      const startD = Date.parse(ahvenanmaa[lastIndex - 30].date)
+      const endD = Date.parse(ahvenanmaa[lastIndex].date)
       setStartDate(startD)
       setEndDate(endD)
       const days = calculateDaysBetween(startD, endD)
@@ -75,14 +105,15 @@ const App = () => {
 
   return (
     <Router>
+      <NavComp />
       <Switch>
         <Route path="/kayra">
-          <GraphView regionNames={regionNames} 
-          coData={coData} 
-          chosenRegions={chosenRegions} 
-          startDate={startDate} 
-          endDate={endDate} 
-          calcBetween={calculateDaysBetween} />
+          <GraphView regionNames={regionNames}
+            coData={coData.confirmed}
+            chosenRegions={chosenRegions}
+            startDate={startDate}
+            endDate={endDate}
+            calcBetween={calculateDaysBetween} />
         </Route>
         <Route path="/">
           <HomeView
@@ -95,6 +126,11 @@ const App = () => {
             startDate={startDate}
             endDate={endDate}
             handleEndDateChange={handleEndDateChange}
+            defaultColor={defaultColor}
+            hoverColor={hoverColor}
+            chosenColor={chosenColor}
+            regions={regions}
+            setRegions={setRegions}
           />
         </Route>
       </Switch>

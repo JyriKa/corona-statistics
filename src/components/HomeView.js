@@ -3,34 +3,11 @@ import { useHistory } from "react-router-dom";
 import Regions from './Regions'
 import Map from './Map'
 import CardRay from './CardRay'
+import { Col, Container, Row, Button } from 'react-bootstrap';
 
-const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange }) => {
+const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange, 
+    defaultColor, hoverColor, chosenColor, regions, setRegions }) => {
     const history = useHistory()
-    const defaultColor = '#fff'
-    const hoverColor = '#ff0000'
-    const chosenColor = '#990000'
-
-    const [regions, setRegions] = useState({
-        ahvenanmaa: defaultColor,
-        etelaKarjala: defaultColor,
-        etelaPohjanmaa: defaultColor,
-        etelaSavo: defaultColor,
-        kainuu: defaultColor,
-        kantaHame: defaultColor,
-        keskiPohjanmaa: defaultColor,
-        keskiSuomi: defaultColor,
-        kymenlaakso: defaultColor,
-        lappi: defaultColor,
-        pirkanmaa: defaultColor,
-        pohjanmaa: defaultColor,
-        pohjoisKarjala: defaultColor,
-        pohjoisPohjanmaa: defaultColor,
-        pohjoisSavo: defaultColor,
-        paijatHame: defaultColor,
-        satakunta: defaultColor,
-        uusimaa: defaultColor,
-        varsinaisSuomi: defaultColor
-    })
 
     const getRegionId = (event) => {
         const id = event.target.id
@@ -76,17 +53,37 @@ const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenReg
     }
 
     return (
-        <div>
-            <Regions regionNames={regionNames} regions={regions} enterHandler={handleMouseEnter}
-                leaveHandler={handleMouseLeave} clickHandler={handleMouseClick} />
-            <Map width='750' height='750' regions={regions} enterHandler={handleMouseEnter}
-                leaveHandler={handleMouseLeave} clickHandler={handleMouseClick} />
-            <CardRay regions={chosenRegions} regionNames={regionNames} regionData={regionData} coData={coData}
-                startDate={startDate} handleDateChange={handleDateChange} endDate={endDate} handleEndDateChange={handleEndDateChange} />
-            <div>
-                <button onClick={() => { history.push('/kayra') }}>KÄYRÄ NÄKYMÄ</button>
-            </div>
-        </div>
+        <Container fluid='xl'>
+            <Row>
+                <Col>
+                    <Regions
+                        regionNames={regionNames}
+                        regions={regions}
+                        enterHandler={handleMouseEnter}
+                        leaveHandler={handleMouseLeave}
+                        clickHandler={handleMouseClick}
+                        startDate={startDate}
+                        handleDateChange={handleDateChange}
+                        endDate={endDate}
+                        handleEndDateChange={handleEndDateChange} />
+                </Col>
+                <Col>
+                    <Map width='450' height='750'
+                        regions={regions}
+                        enterHandler={handleMouseEnter}
+                        leaveHandler={handleMouseLeave}
+                        clickHandler={handleMouseClick} />
+                </Col>
+                <Col>
+                    <CardRay
+                        regions={chosenRegions}
+                        regionNames={regionNames}
+                        regionData={regionData}
+                        coData={coData} />
+                    <Button onClick={() => { history.push('/kayra') }} variant="outline-dark">Käyränäkymä</Button>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 
