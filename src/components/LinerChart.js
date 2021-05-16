@@ -3,10 +3,10 @@ import { LineChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Line, Responsi
 import moment from 'moment'
 import 'moment/locale/fi'
 
-const LinerChart = ({ data, chosenRegions, topValueReg }) => {
+const LinerChart = ({ data, chosenRegions, topValueReg, colors }) => {
     console.log(data)
-    const lines = chosenRegions.map(elem => {
-        return <Line key={elem} type="monotone" dataKey={elem} stroke="#3ef04a" />
+    const lines = chosenRegions.map((elem, index) => {
+        return <Line key={elem} type="monotone" dataKey={elem} stroke={colors[index]} />
     })
     return (
         <ResponsiveContainer width={'99%'} height={500}>
