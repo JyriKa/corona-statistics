@@ -6,6 +6,8 @@ const RegCard = ({ name, data, regData }) => {
     return (
         <div style={{ margin: '10px', padding: '5px', textAlign: 'center', width: '18rem', border: '2px solid blue' }} >
             <b>{name}</b>
+            <p></p>
+            <b>Koko ajalta</b>
             <p>Sairastuneet: {data.infected} | {roundedPercentI}% </p>
             <p>Testatut: {data.tested} | {roundedPercentT}%</p>
             <p>Väkiluku: {data.population} </p>

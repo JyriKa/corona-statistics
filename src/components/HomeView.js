@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import CardRayHolder from './CardRayHolder';
 
 const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenRegions, handleDateChange, startDate, endDate, handleEndDateChange,
-    defaultColor, hoverColor, chosenColor, regions, setRegions }) => {
+    defaultColor, hoverColor, chosenColor, regions, setRegions, calcBetween, daysBetween }) => {
 
     const getRegionId = (event) => {
         const id = event.target.id
@@ -62,7 +62,8 @@ const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenReg
                         startDate={startDate}
                         handleDateChange={handleDateChange}
                         endDate={endDate}
-                        handleEndDateChange={handleEndDateChange} />
+                        handleEndDateChange={handleEndDateChange}
+                        daysBetween={daysBetween} />
                 </Col>
                 <Col>
                     <Map width='450' height='750'
@@ -77,6 +78,9 @@ const HomeView = ({ regionNames, regionData, coData, chosenRegions, setChosenReg
                         regionNames={regionNames}
                         regionData={regionData}
                         coData={coData}
+                        startDate={startDate}
+                        endDate={endDate}
+                        calcBetween={calcBetween}
                     />
                 </Col>
             </Row>

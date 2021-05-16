@@ -1,12 +1,12 @@
 import React from 'react'
-import { LineChart, XAxis, YAxis, Tooltip, Legend, Label, CartesianGrid, Line, ResponsiveContainer } from 'recharts'
+import { LineChart, XAxis, YAxis, Tooltip, Legend, CartesianGrid, Line, ResponsiveContainer } from 'recharts'
 import moment from 'moment'
 import 'moment/locale/fi'
 
 const LinerChart = ({ data, chosenRegions, topValueReg }) => {
     console.log(data)
     const lines = chosenRegions.map(elem => {
-        return <Line key={elem} type="monotone" dataKey={elem} stroke="#8884d8" />
+        return <Line key={elem} type="monotone" dataKey={elem} stroke="#3ef04a" />
     })
     return (
         <ResponsiveContainer width={'99%'} height={500}>
