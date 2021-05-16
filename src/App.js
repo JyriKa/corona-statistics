@@ -75,7 +75,7 @@ const App = () => {
     const startD = Date.parse(ahvenanmaa[0].date)
     if (newDate < startD || newDate > endDate) return
     setStartDate(newDate)
-    setDaysBetween(calculateDaysBetween(startDate, endDate))
+    setDaysBetween(calculateDaysBetween(newDate, endDate))
   }
 
   const handleEndDateChange = (newDate) => {
@@ -83,7 +83,7 @@ const App = () => {
     const endD = Date.parse(ahvenanmaa[ahvenanmaa.length - 1].date)
     if (newDate > endD || newDate < startDate) return
     setEndDate(newDate)
-    setDaysBetween(calculateDaysBetween(startDate, endDate))
+    setDaysBetween(calculateDaysBetween(startDate, newDate))
   }
 
   useEffect(() => {
